@@ -1,0 +1,72 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-6">
+                <button mat-raised-button type="button" style="left: 210px;" class="btn btn-success text-right" routerLink="../user-notification">Send Notification to all users</button>
+              </div>
+              <div class="col-6">
+                <!-- <button mat-raised-button type="button" style="left: 200px;" class="btn btn-success text-right" routerLink="../user-add">Add User</button> -->
+              </div>
+            </div>
+            
+            
+              <div class="card">
+                <div class="card-header card-header-rose card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">person</i>
+                  </div>
+                  <h4 class="card-title">User </h4>
+                </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table">
+                                  <thead>
+                                      <tr>
+                                        <th class="text-center">{{ tableData1.headerRow[0] }}</th>
+                                        <th class="text-center">{{ tableData1.headerRow[1] }}</th>
+                                        <th class="text-center">{{ tableData1.headerRow[2] }}</th>
+                                        <th class="text-center">{{ tableData1.headerRow[3] }}</th>
+                                        <th class="text-center">{{ tableData1.headerRow[4] }}</th>
+                                        <th class="text-center">{{ tableData1.headerRow[5] }}</th>
+                                        <th class="text-center">{{ tableData1.headerRow[6] }}</th>
+                                        <th class="text-right">{{ tableData1.headerRow[7] }}</th>
+                                      </tr>
+                                  </thead>
+                                <tbody>
+                                  {{ tournaments | json}}
+                                    <tr *ngFor="let row of tournaments">
+                                        <td class="text-center" >{{row.name}}</td>
+                                        <td class="text-center">{{row.entryFee}}</td>
+                                        <td class="text-center">{{row.description}}</td>
+                                        <!-- <td class="text-center">{{row.phoneNumber}}</td>
+                                        <td class="text-center">{{row.psnNumber}}</td>
+                                        <td class="text-center">{{row.email}}</td>
+                                        <td class="text-center">{{row.password}}</td> -->
+                                        
+                                        <td class="td-actions text-right">
+                                          <button mat-raised-button type="button" class="btn btn-success {{row[5]}}">
+                                            <i class="material-icons" [routerLink]="['../chat', row.id]">chat</i>
+                                        </button>
+                                            <button mat-raised-button type="button" class="btn btn-success {{row[5]}}">
+                                                <i class="material-icons" [routerLink]="['../user-edit', row.id]">edit</i>
+                                            </button>
+                                              <button mat-raised-button type="button" class="btn btn-success {{row[5]}}">
+                                            <i class="material-icons" (click)="block(row.id)">block</i>
+                                        </button>
+                                            <button mat-raised-button type="button" class="btn btn-danger {{row[5]}}">
+                                                <i class="material-icons" (click)="deleteUser(row.id)">close</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+      </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-11">
+        <div class="card ">
+          <div class="card-header card-header-rose card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">person</i>
+            </div>
+            <h4 class="card-title">Send message</h4>
+          </div>
+          <div class="card-body ">
+            <form [formGroup]="formUser1">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Title" type="text" formControlName="title">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Body" type="text" formControlName="body">
+              </mat-form-field>
+            </form>
+            <div class="card-footer ">
+              <button mat-raised-button type="submit" (click)="onSubmit()" class="btn btn-fill btn-rose">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

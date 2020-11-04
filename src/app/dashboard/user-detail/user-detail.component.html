@@ -1,0 +1,53 @@
+<div class="main-content">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-11">
+        <div class="card ">
+          <div class="card-header card-header-rose card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">person</i>
+            </div>
+            <h4 class="card-title">Player Details</h4>
+          </div>
+          <div class="card-body ">
+
+            <div class="row">
+              <div class="col-6" *ngFor="let user of userData">
+                <div class="card card-stats">
+                  <div class="card-header card-header-success card-header-icon">
+                    <div class="card-icon">
+                      <i class="material-icons">person</i>
+                    </div>
+
+                    <h2 class="card-title" [routerLink]="['../../user-detail', user.id]">{{user.firstName}}
+                      {{user.lastName}}</h2>
+                  </div>
+                  <div class="card-footer">
+                    <div class="stats">
+                      <i class="material-icons">update</i> Just Updated
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 mx-4">
+
+              <div class="row">
+                <h3 class="col-6"><strong>First Name:</strong> &nbsp;{{user.firstName}}</h3>
+                <h3 class="col-6"><strong>Last Name:</strong> &nbsp;{{user.lastName}}</h3>
+              </div>
+              <div class="row">
+                <h3 class="col-6"><strong>Email:</strong> &nbsp;{{user.email}}</h3>
+                <h3 class="col-6"><strong>PSN Username:</strong> &nbsp;{{user.psnName}}</h3>
+              </div>
+              <div class="row">
+                <h3 class="col-6"><strong>Phone Number:</strong> &nbsp;{{user.phoneNumber}}</h3>
+                <h3 class="col-6"><strong>Password:</strong> &nbsp;{{user.password}}</h3>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

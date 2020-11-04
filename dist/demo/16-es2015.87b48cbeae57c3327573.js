@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[16],{hU7q:function(n,o,t){"use strict";t.r(o);var r=t("tyNb"),e=t("ofXK"),c=t("3Pt+");const s=[];var i=t("fXoL");t.d(o,"UserModule",(function(){return u}));let u=(()=>{class n{}return n.\u0275mod=i.Ob({type:n}),n.\u0275inj=i.Nb({factory:function(o){return new(o||n)},imports:[[e.c,r.j.forChild(s),c.j]]}),n})()}}]);

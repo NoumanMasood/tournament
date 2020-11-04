@@ -1,0 +1,88 @@
+.notification-dropdown {
+    position: absolute;
+    top: 100%;
+    // left: -200px;
+    z-index: 9999 !important;
+    float: left;
+    min-width: 23rem;
+    padding: 0px;
+    margin: 0.125rem 0 0;
+    font-size: 0.938rem;
+    color: #29324a;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+  
+  
+  }
+  
+  .notification-header {
+    padding: 0.8rem;
+    color: white;
+    height: 50px;
+    background-color: #051c2c;
+    .header-left {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .header-right {
+      font-size: 0.8rem;
+      padding-left: 0.3rem;
+      padding-right: 0.3rem;
+      padding-top: 0.2rem;
+      padding-bottom: 0.2rem;
+      cursor: pointer;
+    }
+  
+  }
+  .notification-list {
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    border-right: 1px solid #E9E9E9;
+    cursor: pointer;
+  }
+  
+  .notification-inner-content {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 400px;
+  }
+  
+  .notification-item {
+    .notification-icon {
+       color: #919191;
+       font-size: 2.1rem;
+       display: flex;
+       align-items: center;
+       padding: 1px;
+    }
+    .title-first {
+      color: #000000;
+      font-size: 0.8rem;
+    }
+  }
+  
+  .notification {
+    color: white;
+    position: relative;
+    right: -9px !important; 
+    top: -30px !important;
+  }
+  
+  .badge {
+    position: absolute;
+    top: -12px;
+    right: -15px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+  }
+  
+  #dropdownMenuButton {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }

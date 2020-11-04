@@ -1,0 +1,57 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+            <button mat-raised-button type="button" style="left: 700px;" class="btn btn-danger text-right" routerLink="../dashboard">Add Tournament</button>
+              <div class="card">
+                <div class="card-header card-header-rose card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">emoji_events</i>
+                  </div>
+                  <h4 class="card-title">Tournament List</h4>
+                </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table">
+                                  <thead>
+                                      <tr>
+                                        <th class="text-center">{{ tableData1.headerRow[0] }}</th>
+                                        <th class="text-center">{{ tableData1.headerRow[1] }}</th>
+                                        <th class="text-center">{{ tableData1.headerRow[2] }}</th>
+                                        <th class="text-center">{{ tableData1.headerRow[3] }}</th>
+                                        <th class="text-center">{{ tableData1.headerRow[4] }}</th>
+                                        <th class="text-center">{{ tableData1.headerRow[5] }}</th>
+                                        <th class="text-center">{{ tableData1.headerRow[6] }}</th>
+                                        <th class="text-right">{{ tableData1.headerRow[7] }}</th>
+                                      </tr>
+                                  </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of item" >
+                                        <td class="text-center" [routerLink]="['../tournament-detail', row.id]">{{row.name}}</td>
+                                        <td class="text-center" [routerLink]="['../tournament-detail', row.id]">{{row.description}}</td>
+                                        <td class="text-center" [routerLink]="['../tournament-detail', row.id]">{{row.entryFee}}</td>
+                                        <td class="text-center" [routerLink]="['../tournament-detail', row.id]">{{row.prizeMoney}}</td>
+                                        <td class="text-center" [routerLink]="['../tournament-detail', row.id]">{{row.startDate}}</td>
+                                        <td class="text-center" [routerLink]="['../tournament-detail', row.id]">{{row.numberOfPlayer}}</td>
+                                        <td class="text-center"><img src={{row.banner}} style="width: 100px; height:50px"></td>
+                                        
+                                        <td class="td-actions text-right">
+                                           
+                                            <button mat-raised-button type="button" class="btn btn-success {{row[5]}}">
+                                                <i class="material-icons" [routerLink]="['../tournament-edit', row.id]">edit</i>
+                                            </button>
+                                            <button mat-raised-button type="button" class="btn btn-danger {{row[5]}}">
+                                                <i class="material-icons" (click)="deleteTournament(row.id)">close</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+      </div>
+  </div>
+</div>

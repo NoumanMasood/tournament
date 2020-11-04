@@ -1,0 +1,61 @@
+<div class="main-content">
+  
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-11">
+        <div class="card ">
+          <div class="card-header card-header-rose card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">sports_soccer</i>
+            </div>
+            <h4 class="card-title">Match Details</h4>
+          </div>
+          <div class="card-body ">
+
+            <div class="row">
+              <div class="col-6" *ngFor="let user of arr">
+                <div class="card card-stats" >
+                  <div class="card-header card-header-success card-header-icon">
+                    <div class="card-icon">
+                      <i class="material-icons">person</i>
+                    </div>
+                    <button mat-raised-button class="btn btn-warning" (click)="winner(user)" *ngIf="singleItem.status === 'pending'">Declare Winner</button>
+                    <h2 class="card-title" [routerLink]="['../../user-detail', user.id]">{{user.firstName}} {{user.lastName}}</h2>
+                  </div>
+                  <div class="card-footer">
+                    <div class="stats">
+                      <i class="material-icons">update</i> Just Updated
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div class="row">
+                <button mat-raised-button class="btn btn-danger" style="margin-left: 300px;" (click)="draw()" *ngIf="singleItem.status === 'pending'">Declare As Draw</button>
+              </div>
+              <div class="col-12 mx-4">
+
+                <div class="row">
+                  <h3 class="col-6"><strong>Match Start Time:</strong> &nbsp;{{singleItem.startTime}}</h3>
+                  <h3 class="col-6"><strong>Match End Time:</strong> &nbsp;{{singleItem.endTime}}</h3>
+                </div>
+                <div class="row">
+                  <h3 class="col-12"><strong>Winner:</strong> &nbsp;{{singleItem.winner}}</h3>
+                </div>
+                <div class="row">
+                <h3 class="col-12"><strong>Proof 1:</strong> &nbsp;</h3><img src={{singleItem.proof1}} style="width:500px; height: 200px">
+              </div>
+              <div class="row">
+              <h3 class="col-12"><strong>Proof 2:</strong> &nbsp;</h3><img src={{singleItem.proof2}} style="width:500px; height: 200px">
+            </div>
+            <div class="row">
+              <button mat-raised-button class="btn btn-danger" (click)="end()" *ngIf="singleItem.bracket === 3" >End Tournament</button>
+          </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>

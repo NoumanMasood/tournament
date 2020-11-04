@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<div mat-dialog-content>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Title" type="text" [(ngModel)]="title">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Body" type="text" [(ngModel)]="body">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="title" cdkFocusInitial>Ok</button>
+</div>
+<!-- <h3>&nbsp;Want to Send Notification?</h3>
+
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Title" type="text" [(ngModel)]="data.title">
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Body" type="text" [(ngModel)]="data.body">
+                  </mat-form-field>
+                
+                <div mat-dialog-actions> -->
+                  <!-- <button mat-button (click)="onNoClick()">No Thanks</button> -->
+                  <!-- <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+                </div>  -->
+                <!-- <button mat-raised-button class="btn btn-success" (click)="sendNotification()">Send Notification To all Users</button> -->
+              
