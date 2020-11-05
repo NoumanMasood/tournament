@@ -6,13 +6,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyDrN7f0I_f9yLpqh8Fp6wl4XJFPTLILHXQ",
-    authDomain: "tournament-95158.firebaseapp.com",
-    databaseURL: "https://tournament-95158.firebaseio.com",
-    projectId: "tournament-95158",
-    storageBucket: "tournament-95158.appspot.com",
-    messagingSenderId: "1086255928573",
-    appId: "1:1086255928573:web:428364053a9ecd38049a94",
-    measurementId: "G-HHY6307KJ3"
+    apiKey: "AIzaSyB57qn_T8abLL01iKBdoqRTZbRxzZc92hA",
+    authDomain: "xopros.firebaseapp.com",
+    databaseURL: "https://xopros.firebaseio.com",
+    projectId: "xopros",
+    storageBucket: "xopros.appspot.com",
+    messagingSenderId: "24613401200",
+    appId: "1:24613401200:web:f0bd29b936624348433ab5"
   }
 };

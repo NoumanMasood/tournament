@@ -134,6 +134,8 @@ export class DashboardComponent implements OnInit {
       entryFee: ["", Validators.required],
       startDate: ["", Validators.required],
       prizeMoney: new FormControl(''),
+      secondPrizeMoney: new FormControl(''),
+      thirdPrizeMoney: new FormControl(''),
       numberOfPlayer: ["", Validators.required],
       banner: ["", Validators.required],
   })
