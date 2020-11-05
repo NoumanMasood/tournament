@@ -24,7 +24,7 @@ export interface TableData2 {
 }
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './user-list.component.html'
+  templateUrl: './user-tour-detail.component.html'
 })
 export class UserTourDetailComponent implements OnInit {
   public tableData1: TableData;

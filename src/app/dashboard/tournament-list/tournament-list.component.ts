@@ -33,7 +33,7 @@ export class TournamentListComponent implements OnInit {
   constructor(private tournamentService: TournamentService) {}
   ngOnInit() {
     this.tableData1 = {
-          headerRow: [ 'Name', 'Description', 'Entry Fee', 'Prize Money', 'Start Date', 'Number Of players', 'Banner', ''],
+          headerRow: [ 'Name', 'Description', 'Entry Fee', 'First Prize Money', 'Second Prize Money', 'Third Prize Money', 'Start Date', 'Number Of players', 'Banner', ''],
           // dataRows: this.tournamentList
        };
     this.tournamentService.getTournaments().subscribe((res) => {

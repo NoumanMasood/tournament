@@ -29,7 +29,13 @@
               <p *ngIf="formTournament.get('startDate').touched && formTournament.get('startDate').invalid" style="color: red">Start Date is required</p>
 
               <mat-form-field class="example-full-width">
-                <input matInput placeholder="Prize Money" type="number" formControlName="prizeMoney">
+                <input matInput placeholder="First Prize Money" type="number" formControlName="prizeMoney">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Second Prize Money" type="number" formControlName="secondPrizeMoney">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Third Prize Money" type="number" formControlName="thirdPrizeMoney">
               </mat-form-field>
               <mat-select placeholder="Select Number of Players" name="numberOfPlayer" formControlName="numberOfPlayer">
                 <mat-option *ngFor="let player of players" [value]="player.value">

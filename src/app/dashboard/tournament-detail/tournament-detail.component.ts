@@ -117,7 +117,7 @@ export class TournamentDetailComponent implements OnInit {
         }
       })
       this.singleItem = this.item.find((row) => {
-        return row.id = this.id;
+        return row.id === this.id;
       })
     console.log(this.matches);
     });
