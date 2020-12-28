@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit {
    }
 
   players = [
+     {value: '2',  viewValue: '2'},
     {value: '8',  viewValue: '8'},
     {value: '9',  viewValue: '9'},
     {value: '10', viewValue: '10'},
@@ -138,6 +139,7 @@ export class DashboardComponent implements OnInit {
       thirdPrizeMoney: new FormControl(''),
       numberOfPlayer: ["", Validators.required],
       banner: ["", Validators.required],
+      open: true
   })
   }
   onFileSelected(event) {

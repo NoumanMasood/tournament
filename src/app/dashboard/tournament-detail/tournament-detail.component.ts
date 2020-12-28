@@ -71,7 +71,7 @@ export class TournamentDetailComponent implements OnInit {
         }
       });
       this.pendingMatches = this.match.filter((match: any) => {
-        return match.status == 'pending';
+        return match.status !== 'completed';
       })
       this.completeMatches = this.match.filter((match: any) => {
         return match.status == 'completed';
@@ -92,7 +92,13 @@ export class TournamentDetailComponent implements OnInit {
               return userMatch.map((userMat: any) => {
  
                 if( user.id == userMat.userId) { 
-                  this.userData.push({ match: mat, ...user});
+                  const aa = this.userData.find((user) => {
+                    return user.id === userMat.userId;
+                  })
+                  if(!aa) {
+                    this.userData.push({ match: mat, ...user});
+                  }
+                  
                 }
               })
             })
@@ -119,8 +125,68 @@ export class TournamentDetailComponent implements OnInit {
       this.singleItem = this.item.find((row) => {
         return row.id === this.id;
       })
-    console.log(this.matches);
+    
     });
+
+  }
+
+  openTournament() {
+    this.tournamentService.editTournament(this.id, {open: true}).then((res) => {  });
+    this.tokenArray.map((token, i) => {
+
+      this.messagingService.requestPermission(this.userWithTokenArray[i], this.formMessageUser.value);
+      this.messagingService.receiveMessage();
+      this.message = this.messagingService.currentMessage;
+      const payload = {
+        notification: {
+          title: 'Tournament Open',
+          body: `${this.singleItem.name} has been opened. Please contact admin`
+        },
+        data: {
+          type: "refresh_data"
+       },
+        to: token
+      }
+      this.tournamentService.postMessages(payload).subscribe((res) => {
+       
+      });
+      this.messagingService.updateToken(this.userWithTokenArray[i], token);
+    },
+    (err) => {
+      console.error('Unable to get permission to notify.', err);
+    }
+    )
+  }
+
+  closeTournament() {
+    this.tournamentService.editTournament(this.id, {open: false}).then((res) => {
+    })
+    
+    
+    this.tokenArray.map((token, i) => {
+
+      this.messagingService.requestPermission(this.userWithTokenArray[i], this.formMessageUser.value);
+      this.messagingService.receiveMessage();
+      this.message = this.messagingService.currentMessage;
+      const payload = {
+        notification: {
+          title: 'Tournament Closed',
+          body: `${this.singleItem.name} has been closed. Please contact admin`
+        },
+        data: {
+          type: "refresh_data"
+       },
+        to: token
+      }
+      this.tournamentService.postMessages(payload).subscribe((res) => {
+       
+      });
+      this.messagingService.updateToken(this.userWithTokenArray[i], token);
+    },
+    (err) => {
+      console.error('Unable to get permission to notify.', err);
+    }
+    )
 
   }
 
@@ -135,10 +201,13 @@ export class TournamentDetailComponent implements OnInit {
           title: this.formMessageUser.value.title,
           body: this.formMessageUser.value.body
         },
+        data: {
+          type: "refresh_data"
+       },
         to: token
       }
       this.tournamentService.postMessages(payload).subscribe((res) => {
-        console.log(res, 'llllllllllll');
+       
       });
       this.messagingService.updateToken(this.userWithTokenArray[i], token);
     },
@@ -178,11 +247,11 @@ export class TournamentDetailComponent implements OnInit {
       });
   }
   onSubmit() {
-    console.log(this.formTournament.value);
+    
     this.formTournament.value.banner = 'https://firebasestorage.googleapis.com/v0/b/tournament-62907.appspot.com/o/RoomsImages%2F1601405964819?alt=media&token=c903c131-4493-4daa-a7c7-ee54a35b6196';
 
     this.tournamentService.editTournament(this.singleItem.id, this.formTournament.value).then(res => {
-      console.log(res);
+      
     })
   }
 }

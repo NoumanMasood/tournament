@@ -55,7 +55,11 @@ export class MessagingService {
           notification: { 
             title: body.title,
             body: body.body,
-          },to: token
+          },
+          data: {
+            type: "refresh_data"
+         },
+          to: token
         }
         this.tournamentService.postMessages(payload).subscribe((res) => {
           console.log(res, 'llllllllllll');

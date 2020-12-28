@@ -29,7 +29,7 @@
                 </div>
                 <div class="row">
                   <h3 class="col-6"><strong>First Prize Money:</strong> &nbsp;{{singleItem?.prizeMoney}}</h3>
-                  <h3 class="col-6"><strong>Second Prize Money:</strong> &nbsp;{{singleItem?.secondPrizeMoney}}</h3>>
+                  <h3 class="col-6"><strong>Second Prize Money:</strong> &nbsp;{{singleItem?.secondPrizeMoney}}</h3>
                 </div>
                 
                 <div class="row">
@@ -46,6 +46,8 @@
                   </mat-form-field>
                 </form>
                 <button mat-raised-button class="btn btn-success" (click)="sendNotification()">Send Notification To all Users</button>
+                <button mat-raised-button class="btn btn-danger" (click)="openTournament()" *ngIf="singleItem?.open === false">Open Tournament</button>
+                <button mat-raised-button class="btn btn-danger" (click)="closeTournament()" *ngIf="singleItem?.open === true">Close Tournament</button>
               </div>
             </div>
           </div>

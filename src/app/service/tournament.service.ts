@@ -31,14 +31,28 @@ export class TournamentService {
    winUser(id, data) {
     return this.firestore.collection('users').doc(id).update(data);
    }
-   loseUser(id, data) {
 
+   createMatch(tournamentId, tournament) {
+    return this.firestore.collection('tournament').doc(tournamentId).collection('matches').add(tournament);
    }
+
    getUserMatches(id: any) {
     return this.firestore.collection('userMatches', ref => ref.where('matchId', '==', id)).valueChanges();
    }
+
+   addUserMatches(userId, matchId) {
+     const details = {
+       userId,
+       matchId
+     }
+    return this.firestore.collection('userMatches').add(details);
+   }
+
   addTournament(tournament: any) {
     return this.firestore.collection('tournament').add(tournament);
+  }
+   addChampion(tournament: any) {
+    return this.firestore.collection('champions').add(tournament);
   }
   postMessages(body: any) {
     const httpHeaders: HttpHeaders = new HttpHeaders({

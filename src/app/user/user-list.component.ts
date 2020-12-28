@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
+const admin = require('firebase-admin');
+// import * as admin from 'firebase-admin';
 
 declare var $: any;
 declare interface TableData {
   headerRow: string[];
 }
+
 declare interface TableWithCheckboxes {
     id?: number;
     ischecked?: boolean;
@@ -52,5 +55,9 @@ export class UserListComponent implements OnInit {
  
   deleteUser(id) {
     this.userService.deleteUser(id);
+    admin.auth().deleteUser(id)
+    .catch(function(error) {
+      console.log("Error deleting user", id, error);
+    });
  }
 }

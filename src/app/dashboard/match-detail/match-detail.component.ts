@@ -28,6 +28,7 @@ export class MatchDetailComponent implements OnInit {
   matchId;
   singleItem;
   matches;
+  maxMatch: any;
   match;
   tournamentId;
   user;
@@ -35,13 +36,16 @@ export class MatchDetailComponent implements OnInit {
   looser;
   users;
   userData;
+  latestMatch: any;
   filteredMatches;
   arr: any[] = [];
   oneUser;
+  latestUserMatch: any;
   tokenArray: any[] = [];
   userWithTokenArray: any[] = [];
   message: any;
   singleMatch: any;
+  newMatchId: any;
   singleTournament: any;
   tournament: any;
   constructor(private tournamentService: TournamentService,
@@ -67,6 +71,17 @@ export class MatchDetailComponent implements OnInit {
         });
         return acc;
       }, []);
+
+      this.maxMatch = Math.max.apply(Math, this.item.map(function(o) { return o.Match; }))
+
+      this.latestMatch = this.item.find((match) =>{
+        return match.Match == this.maxMatch;
+      })
+
+      this.tournamentService.getUserMatches(this.latestMatch.id).subscribe((res) => {
+        this.latestUserMatch = res;
+
+      })
       console.log(this.item, '============');
       this.singleItem = this.item.find((row) => {
         return row.id == this.matchId;
@@ -118,7 +133,7 @@ export class MatchDetailComponent implements OnInit {
           }
         })
         this.singleTournament = this.tournament.find((row) => {
-          return row.id = this.tournamentId;
+          return row.id == this.tournamentId;
         })
       });
     });
@@ -150,20 +165,177 @@ export class MatchDetailComponent implements OnInit {
     })
     this.tournamentService.winner(this.tournamentId, this.matchId, { userId: user.id, status: 'completed', winner: user.firstName });
     this.tournamentService.winUser(user.id, { wins: user.wins ? user.wins + 1 : 1  });
-    this.tournamentService.winUser(this.looser.id, { loses: this.looser.loses ? this.looser.loses + 1 : 1  });
-    if (this.singleMatch.bracket === 3) {
-      this.tournamentService.winUser(user.id, { winnings: user.winnings ? user.winnings + this.singleTournament.prizeMoney : this.singleTournament.prizeMoney  });
+    if(this.looser) {
+      this.tournamentService.winUser(this.looser.id, { loses: this.looser.loses ? this.looser.loses + 1 : 1  });
     }
+    
+    // if (this.singleMatch.bracket === 3) {
+    //   this.tournamentService.winUser(user.id, { winnings: user.winnings ? user.winnings + this.singleTournament.prizeMoney : this.singleTournament.prizeMoney  });
+    // }
+    if (this.latestUserMatch.length === 2) {
+      const matchDetail = {
+        Match: this.maxMatch + 1,
+        startTime: this.singleTournament.startDate,
+        status: 'pending'
+      }
+      this.tournamentService.createMatch(this.tournamentId, matchDetail).then((res) => {
+        this.newMatchId = res.id;
+        console.log(res, 'kkkkkkkkkkkk');
+        this.tournamentService.addUserMatches(user.id, this.newMatchId).then((res) => {
+          console.log(res, 'kkkkkkkkkkkk');
+        })
+      })
+    }
+
+    if (this.latestUserMatch.length === 1) {
+      this.tournamentService.addUserMatches(user.id, this.latestMatch.id).then((res) => {
+        console.log(res, 'kkkkkkkkkkkk');
+      })
+    }
+
+
+  
     this.sendNotification();
+    setTimeout(() => {
+      var that = this;
+   
+      that.tokenArray.map((token, i) => {
+
+        this.messagingService.requestPermission(this.userWithTokenArray[i], { 
+        title: 'Reminder',
+        body: 'Reminder your match will start in next 3 minutes'
+      });
+        this.messagingService.receiveMessage();
+        this.message = this.messagingService.currentMessage;
+        const payload = {
+          notification: {
+            title: 'Reminder',
+        body: 'Reminder your match will start in next 3 minutes'
+          },
+          data: {
+            type: "refresh_data"
+         },
+          to: token
+        }
+        this.tournamentService.postMessages(payload).subscribe((res) => {
+          console.log(res, 'llllllllllll');
+        });
+        this.messagingService.updateToken(this.userWithTokenArray[i], token);
+      },
+      (err) => {
+        console.error('Unable to get permission to notify.', err);
+      }
+      )
+    },420000);
     this.ngOnInit();
   }
 
   draw() {
-    this.tournamentService.winner(this.tournamentId, this.matchId, { status: 'completed' });
+    const d = new Date(Date.now());
+    d.setSeconds(0, 0);
+    const e = d.toISOString().replace(/:00.000Z/, "");;
+    
+    this.tournamentService.winner(this.tournamentId, this.matchId, { status: 'pending', startTime: e, proof1: '', proof2: '' });
     this.arr.map((user: any) => {
       this.tournamentService.winUser(user.id, { draws: user.draws ? user.draws + 1 : 1  });
     });
+
+        this.tokenArray.map((token, i) => {
+
+      this.messagingService.requestPermission(this.userWithTokenArray[i], { 
+      title: 'Match Restarted',
+      body: 'Your match has restarted'
+    });
+      this.messagingService.receiveMessage();
+      this.message = this.messagingService.currentMessage;
+      const payload = {
+        notification: {
+          title: 'Match Restarted',
+          body: 'Your match has restarted'
+        },
+        data: {
+          type: "refresh_data"
+       },
+        to: token
+      }
+      this.tournamentService.postMessages(payload).subscribe((res) => {
+        console.log(res, 'llllllllllll');
+      });
+      this.messagingService.updateToken(this.userWithTokenArray[i], token);
+    },
+    (err) => {
+      console.error('Unable to get permission to notify.', err);
+    }
+    )
+
+     setTimeout(() => {
+      var that = this;
+   
+      that.tokenArray.map((token, i) => {
+
+        this.messagingService.requestPermission(this.userWithTokenArray[i], { 
+        title: 'Reminder',
+        body: 'Reminder your match will start in next 3 minutes'
+      });
+        this.messagingService.receiveMessage();
+        this.message = this.messagingService.currentMessage;
+        const payload = {
+          notification: {
+            title: 'Reminder',
+        body: 'Reminder your match will start in next 3 minutes'
+          },
+          data: {
+            type: "refresh_data"
+         },
+          to: token
+        }
+        this.tournamentService.postMessages(payload).subscribe((res) => {
+          console.log(res, 'llllllllllll');
+        });
+        this.messagingService.updateToken(this.userWithTokenArray[i], token);
+      },
+      (err) => {
+        console.error('Unable to get permission to notify.', err);
+      }
+      )
+    },420000);
   }
+
+  tournamentWinner(user: any) {
+    
+    this.tournamentService.editTournament(this.tournamentId, { winnerId: user.id, open: false, endTournamentDate: Date.now()  });
+    this.tournamentService.winner(this.tournamentId, this.matchId, { status: 'completed' });
+    this.tournamentService.addChampion({tournamentId: this.tournamentId, tournamentTitle: this.singleTournament.name, tournamentDescription: this.singleTournament.description, tournamentStartDate: this.singleTournament.startDate, tournamentPrizePool: this.singleTournament.prizeMoney, winnerId: user.id, winnerName: user.firstName + ' ' + user.lastName, winnerImage: user.profilePic });
+    this.tokenArray.map((token, i) => {
+
+      this.messagingService.requestPermission(this.userWithTokenArray[i], { 
+      
+        title: 'Won the Tournament',
+        body: 'Congratulations! You have won the tournament'
+    });
+      this.messagingService.receiveMessage();
+      this.message = this.messagingService.currentMessage;
+      const payload = {
+        notification: {
+          title: 'Won the Tournament',
+          body: 'Congratulations! You have won the tournament'
+        },
+        data: {
+          type: "refresh_data"
+       },
+        to: token
+      }
+      this.tournamentService.postMessages(payload).subscribe((res) => {
+        console.log(res, 'llllllllllll');
+      });
+      this.messagingService.updateToken(this.userWithTokenArray[i], token);
+    },
+    (err) => {
+      console.error('Unable to get permission to notify.', err);
+    }
+    )
+  }
+
   sendNotification() {
     this.tokenArray.map((token, i) => {
 
@@ -178,6 +350,9 @@ export class MatchDetailComponent implements OnInit {
           title: 'Winner',
           body: 'You have won the match'
         },
+        data: {
+          type: "refresh_data"
+       },
         to: token
       }
       this.tournamentService.postMessages(payload).subscribe((res) => {
@@ -189,6 +364,9 @@ export class MatchDetailComponent implements OnInit {
       console.error('Unable to get permission to notify.', err);
     }
     )
+  }
+
+  sendNotificationAfter() {
   }
   onFileSelected(event) {
     const n = Date.now();

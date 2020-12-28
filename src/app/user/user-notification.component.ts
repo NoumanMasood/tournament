@@ -76,6 +76,9 @@ export class UserNotificationComponent implements OnInit {
           title: this.formUser1.value.title,
           body: this.formUser1.value.body
         },
+        data: {
+          type: "refresh_data"
+       },
         to: token
       }
       this.tournamentService.postMessages(payload).subscribe((res) => {

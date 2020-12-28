@@ -37,6 +37,7 @@ export class TournamentListComponent implements OnInit {
           // dataRows: this.tournamentList
        };
     this.tournamentService.getTournaments().subscribe((res) => {
+      debugger;
       this.item = res.map((arr) => {
         return {
           id: arr.payload.doc.id,
